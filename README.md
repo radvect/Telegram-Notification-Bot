@@ -5,3 +5,4 @@ It parses the yad2.co.il site to find suitable appartments.
 
 
 Updating:
+Testing git connection
