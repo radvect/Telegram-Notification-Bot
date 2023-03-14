@@ -7,8 +7,8 @@ cursor = conn.cursor()
 def db_init_user(user_id: int):
     cursor.execute('INSERT INTO users (USER_ID) VALUES (?)',(user_id,))
     conn.commit()
-def db_add_parameter_city(user_id: int, user_name: str, user_surname: str, username: str):
-	cursor.execute('INSERT INTO test (user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?)', (user_id, user_name, user_surname, username))
+def db_add_parameter_city(user_id: int, city: str):
+	cursor.execute('UPDATE users SET City = ? WHERE USER_ID= ?', (city, user_id))
 	conn.commit()
 # def db_add_parameter_space(user_id: int, user_name: str, user_surname: str, username: str):
 # 	cursor.execute('INSERT INTO test (user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?)', (user_id, user_name, user_surname, username))
