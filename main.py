@@ -31,5 +31,31 @@ def city(message):
 	else:
 		database_init.db_add_parameter_city(message.from_user.id, str(message.text[1:]))
 
+@bot.message_handler(commands=['price'])
+def price_message(message):
+	msg = bot.send_message(message.chat.id,'Сhoose a max price for rent')
+	bot.register_next_step_handler(msg, price)
+
+
+def price(message):
+		database_init.db_add_parameter_price(message.from_user.id, int(message.text))
+@bot.message_handler(commands=['room'])
+def room_message(message):
+	msg = bot.send_message(message.chat.id,'Сhoose a min number of rooms that you need')
+	bot.register_next_step_handler(msg, room)
+def room(message):
+		database_init.db_add_parameter_room(message.from_user.id, int(message.text))
+
+@bot.message_handler(commands=['space'])
+def space_message(message):
+	msg = bot.send_message(message.chat.id,'Сhoose a min value of space that you need')
+	bot.register_next_step_handler(msg, space)
+def space(message):
+		database_init.db_add_parameter_space(message.from_user.id, int(message.text))
+
+
+
+
+
 
 bot.polling()
