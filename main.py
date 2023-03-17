@@ -77,6 +77,8 @@ def Cond_message(message):
 	else:
 		database_init.db_add_parameter_Cond(message.chat.id, 1)
 		bot.send_message(message.chat.id, "Now, you are searching the flat with the air conditioner")
-
-
+@bot.message_handler(commands=['Status'])
+def status(message):
+	status = database_init.get_status(message.chat.id)
+	print(status)
 bot.polling()
