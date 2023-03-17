@@ -19,11 +19,11 @@ def db_add_parameter_price(user_id: int, price: int):
 def db_add_parameter_room(user_id: int, room: int):
 	cursor.execute('UPDATE users SET Room = ? WHERE USER_ID= ?', (room, user_id))
 	conn.commit()
-def db_add_parameter_DUD(user_id: int, user_name: str, user_surname: str, username: str):
-	cursor.execute('INSERT INTO test (user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?)', (user_id, user_name, user_surname, username))
+def db_add_parameter_DUD(user_id: int, DUD: int):
+	cursor.execute('UPDATE users SET DUD = ? WHERE USER_ID= ?', (DUD, user_id))
 	conn.commit()
-def db_add_parameter_conditioner(user_id: int, user_name: str, user_surname: str, username: str):
-	cursor.execute('INSERT INTO test (user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?)', (user_id, user_name, user_surname, username))
+def db_add_parameter_conditioner(user_id: int, cond: int):
+	cursor.execute('UPDATE users SET Cond = ? WHERE USER_ID= ?', (cond, user_id))
 	conn.commit()
 
 def db_get_parameter_DUD(user_id: int, user_name: str, user_surname: str, username: str):
