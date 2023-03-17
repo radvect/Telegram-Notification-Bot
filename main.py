@@ -14,6 +14,8 @@ def start_message(message):
 	id = message.from_user.id
 	print(id)
 	database_init.db_init_user(id)
+	database_init.db_add_parameter_DUD(id,0)
+	database_init.db_add_parameter_conditioner(id,0)
 @bot.message_handler(commands=['city'])
 def city_message(message):
 
@@ -45,18 +47,36 @@ def room_message(message):
 	msg = bot.send_message(message.chat.id,'Сhoose a min number of rooms that you need')
 	bot.register_next_step_handler(msg, room)
 def room(message):
-		database_init.db_add_parameter_room(message.from_user.id, int(message.text))
-		bot.send_message(message.chat.id, "You are looking for the flat with more than %d rooms" % (int(message.text)))
+	database_init.db_add_parameter_room(message.from_user.id, int(message.text))
+	bot.send_message(message.chat.id, "You are looking for the flat with more than %d rooms" % (int(message.text)))
 @bot.message_handler(commands=['space'])
 def space_message(message):
 	msg = bot.send_message(message.chat.id,'Сhoose a min value of space that you need')
 	bot.register_next_step_handler(msg, space)
 def space(message):
-		database_init.db_add_parameter_space(message.from_user.id, int(message.text))
-		bot.send_message(message.chat.id, "You are looking for the flat with more than %d meters" % (int(message.text)))
+	database_init.db_add_parameter_space(message.from_user.id, int(message.text))
+	bot.send_message(message.chat.id, "You are looking for the flat with more than %d meters" % (int(message.text)))
 
 
+@bot.message_handler(commands=['dud'])
+def DUD_message(message):
+	dud_status = database_init.db_get_parameter_DUD(message.chat.id)
+	if(dud_status == 1):
+		database_init.db_add_parameter_DUD(message.chat.id, 0)
+		bot.send_message(message.chat.id, "Now, you are searching the flat with out the Dud Shemesh")
+	else:
+		database_init.db_add_parameter_DUD(message.chat.id, 1)
+		bot.send_message(message.chat.id, "Now, you are searching the flat with the Dud Shemesh")
 
+@bot.message_handler(commands=['Cond'])
+def Cond_message(message):
+	cond_status = database_init.db_get_parameter_Cond(message.chat.id)
+	if (cond_status == 1):
+		database_init.db_add_parameter_Cond(message.chat.id, 0)
+		bot.send_message(message.chat.id, "Now, you are searching the flat with out the air conditioner")
+	else:
+		database_init.db_add_parameter_Cond(message.chat.id, 1)
+		bot.send_message(message.chat.id, "Now, you are searching the flat with the air conditioner")
 
 
 bot.polling()

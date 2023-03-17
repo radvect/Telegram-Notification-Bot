@@ -26,9 +26,14 @@ def db_add_parameter_conditioner(user_id: int, cond: int):
 	cursor.execute('UPDATE users SET Cond = ? WHERE USER_ID= ?', (cond, user_id))
 	conn.commit()
 
-def db_get_parameter_DUD(user_id: int, user_name: str, user_surname: str, username: str):
-	cursor.execute('INSERT INTO test (user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?)', (user_id, user_name, user_surname, username))
-	conn.commit()
-def db_get_parameter_DUD(user_id: int, user_name: str, user_surname: str, username: str):
-	cursor.execute('INSERT INTO test (user_id, user_name, user_surname, username) VALUES (?, ?, ?, ?)', (user_id, user_name, user_surname, username))
-	conn.commit()
+def db_get_parameter_DUD(user_id: int):
+	cursor.execute("SELECT DUD FROM users WHERE USER_ID = ?", (user_id,))
+	result = cursor.fetchone()
+	if result:
+		return result[0]
+
+def db_get_parameter_Cond(user_id: int):
+	cursor.execute("SELECT Cond FROM users WHERE USER_ID = ?", (user_id,))
+	result = cursor.fetchone()
+	if result:
+		return result[0]
