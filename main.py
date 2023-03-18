@@ -1,6 +1,9 @@
 import telebot
 import database_init
 from telebot import types
+
+import parser
+
 with open("venv/token.txt","r") as f:
     token = f.readline()
 
@@ -83,7 +86,6 @@ def Cond_message(message):
 @bot.message_handler(commands=['Status'])
 def status(message):
 	status = database_init.get_status(message.chat.id)
-	print(status)
 	city =status[2]
 	bot.send_message(message.chat.id, "You are searching flat in  %s " % (city))
 	area = status[3]
@@ -102,6 +104,14 @@ def status(message):
 		bot.send_message(message.chat.id, "Now, you are searching the flat with the Air Conditioner")
 	else:
 		bot.send_message(message.chat.id, "You are searching the flat with out the Air Conditioner")
+
+@bot.message_handler(commands=['search'])
+def search(message):
+	print(1)
+	url = parser.form_url(database_init.get_status(message.chat.id))
+	print(url)
+	page = parser.connect(url)
+	soup = parser.BS_parser(page)
+	print(soup)
+
 bot.polling()
-#@bot.message_handler(commands=['search'])
-#def search():
