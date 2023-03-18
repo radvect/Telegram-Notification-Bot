@@ -39,7 +39,7 @@ def db_get_parameter_Cond(user_id: int):
 		return result[0]
 
 def get_status(user_id: int):
-	cursor.execute("SELECT Cond FROM users WHERE USER_ID = ?", (user_id,))
-	result = cursor.fetchone()
+	cursor.execute("SELECT * FROM users WHERE USER_ID = ?", (user_id,))
+	result = cursor.fetchall()
 	if result:
 		return result[0]
