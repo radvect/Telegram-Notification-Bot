@@ -16,6 +16,9 @@ def start_message(message):
 	database_init.db_init_user(id)
 	database_init.db_add_parameter_DUD(id,0)
 	database_init.db_add_parameter_conditioner(id,0)
+	database_init.db_add_parameter_price(id, 1000000)
+	database_init.db_add_parameter_space(message.from_user.id, 0)
+	database_init.db_add_parameter_room(message.from_user.id, 1 )
 @bot.message_handler(commands=['city'])
 def city_message(message):
 
@@ -85,17 +88,20 @@ def status(message):
 	bot.send_message(message.chat.id, "You are searching flat in  %s " % (city))
 	area = status[3]
 	bot.send_message(message.chat.id, "Flat is bigger than %d square meters" % (area))
-	DUD = status[4]
+	price = status[4]
+	bot.send_message(message.chat.id, "Price of a flat is lower than %d" % (price))
+	DUD = status[5]
 	if (DUD == 1):
 		bot.send_message(message.chat.id, "Now, you are searching the flat with the Dud Shemesh")
 	else:
-		bot.send_message(message.chat.id, "You are searching the flatwith out the Dud Shemesh")
-	Rooms = status[5]
+		bot.send_message(message.chat.id, "You are searching the flat with out the Dud Shemesh")
+	Rooms = status[6]
 	bot.send_message(message.chat.id, "Flat has more than %d rooms" % (Rooms))
-	Cond = status[6]
+	Cond = status[7]
 	if (Cond == 1):
 		bot.send_message(message.chat.id, "Now, you are searching the flat with the Air Conditioner")
 	else:
 		bot.send_message(message.chat.id, "You are searching the flat with out the Air Conditioner")
-
 bot.polling()
+#@bot.message_handler(commands=['search'])
+#def search():
